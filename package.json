@@ -1,6 +1,6 @@
 {
   "name": "topside",
-  "version": "0.0.0-development",
+  "version": "0.0.1-dev",
   "description": "Type-safe templates for server-side TypeScript application inspired by Laravel Blade",
   "keywords": [
     "typescript",
