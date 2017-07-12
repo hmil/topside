@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Typescript",
+            "program": "${workspaceRoot}/dist/cli",
+            "args": ["${workspaceRoot}/spec/fixtures/templates/hello_world.top.html"],
+            "cwd": "${workspaceRoot}",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Process",
+            "port": 5858
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+@import House from '../models/House';
+
+@param house: House
+
+<div>
+    <h1>Characters of house @(''+house)</h1>
+    <p><em>@(house.getMotto())</em></p>
+    <ul>
+        @for(person of house.people)
+            <li>@(person.name) @if(person.sex)[@(person.sex)]@endif
+                @if(person.children)
+                    <ul>
+                        @for(child of person.children)
+                            <li>@(child.name) @if(child.sex)[@(child.sex)]@endif()</li>
+                        @endfor
+                    </ul>
+                @elseif(person.sex === 'M')
+                    This character is not a father.
+                @else
+                    This character is not a mother.
+                @endif
+            </li>
+        @endfor
+    </ul>
+</div>
