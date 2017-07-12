@@ -1,7 +1,7 @@
-import { Fragment } from "../CompilerInterface"
+import { Fragment } from "../CompilerInterface";
 
 export default class NullFragment implements Fragment {
-  public render(): string {
-    return ""
-  }
+    public render(): string {
+        return "";
+    }
 }
