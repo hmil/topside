@@ -8,18 +8,18 @@ class BeginForFragment implements Fragment {
     return (
       "' + \n" +
       "(function() {\n" +
-      "   let __acc = '';\n" +
-      "   for (let " +
+      "    let __acc = '';\n" +
+      "    for (let " +
       this.expr +
       ") {\n" +
-      "       __acc += ('"
+      "        __acc += ('"
     )
   }
 }
 
 class EndForFragment implements Fragment {
   public render(): string {
-    return "');\n" + "   }\n" + "   return __acc;\n" + "}()) + '"
+    return "');\n" + "    }\n" + "    return __acc;\n" + "}()) + '"
   }
 }
 

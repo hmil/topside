@@ -46,8 +46,7 @@
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
-      "prettier --write --no-semi",
-      "git add"
+      "npm run lint"
     ]
   },
   "config": {

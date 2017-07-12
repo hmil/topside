@@ -8,7 +8,7 @@ class PassThroughFragment implements Fragment {
   constructor(private readonly text: string) {}
 
   public render(): string {
-    return this.text.replace(QUOT_RX, "\\'").replace(NL_RX, "\\n") + "' +\n'"
+    return this.text.replace(QUOT_RX, "\\'").replace(NL_RX, "\\n");
   }
 }
 
