@@ -27,14 +27,14 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "postinstall": "require-self",
     "dist": "rollup -c && rollup -c rollup-cli.config.js",
     "build": "tsc && npm run dist && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc-watch --onSuccess \"npm run dist\"",
-    "spec": "bash ./tools/run-spec.sh",
+    "build-spec": "ts-node tools/run-spec",
+    "spec": "ts-node tools/run-spec",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache && npm run spec",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
@@ -83,6 +83,8 @@
     }
   },
   "devDependencies": {
+    "@types/diff": "^3.2.0",
+    "@types/escape-html": "0.0.19",
     "@types/jest": "^20.0.0",
     "@types/minimist": "^1.2.0",
     "@types/node": "^8.0.0",
@@ -91,6 +93,8 @@
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.1",
     "cz-conventional-changelog": "^2.0.0",
+    "diff": "^3.3.0",
+    "escape-html": "^1.0.3",
     "husky": "^0.14.0",
     "jest": "^20.0.4",
     "lint-staged": "^4.0.0",
@@ -115,5 +119,9 @@
     "typedoc": "^0.7.1",
     "typescript": "^2.3.4",
     "validate-commit-msg": "^2.12.2"
+  },
+  "peerDependencies": {
+    "escape-html": "1.x",
+    "@types/escape-html": ">=0.0.19"
   }
 }

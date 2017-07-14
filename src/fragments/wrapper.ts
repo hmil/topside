@@ -4,6 +4,12 @@ import { ParamsContext } from "../rules/param";
 
 export const WrapperBeforeFragment: Fragment = {
     render(ctx: ImportContext & ParamsContext): string {
+        const argsExpr = "{" +
+                ctx.params.map(p => p.name).join(", ") +
+            "}: {" +
+                ctx.params.map(p => p.name + ": " + p.type).join(", ") +
+            "}";
+        
         return (
             ctx.imports
                 .map(i => {
@@ -11,11 +17,8 @@ export const WrapperBeforeFragment: Fragment = {
                 })
                 .join("\n") +
             "\n\n" +
-            "export default function({" +
-            ctx.params.map(p => p.name).join(", ") +
-            "}: {" +
-            ctx.params.map(p => p.name + ": " + p.type).join(", ") +
-            "}) {\n" +
+            "export default function(" +
+                (ctx.params.length > 0 ? argsExpr : "") + ") {\n" +
             "    return (\n'"
         );
     }

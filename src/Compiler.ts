@@ -3,6 +3,10 @@ import CompileError from "./CompileError";
 import { AtRuleToken, TextToken, Token } from "./Token";
 import Tokenizer from "./Tokenizer";
 
+export interface CompilerOptions {
+    file?: string
+};
+
 export default class Compiler {
     private fragmentsBefore: Fragment[] = [];
     private fragmentsAfter: Fragment[] = [];
@@ -26,7 +30,7 @@ export default class Compiler {
         }
     }
 
-    public compile(input: string): string {
+    public compile(input: string, options?: CompilerOptions): string {
         try {
             const tokenizer = new Tokenizer();
             tokenizer.consume(input);
@@ -34,7 +38,11 @@ export default class Compiler {
             return this.processTokens(tokens);
         } catch (e) {
             if (e.name === "CompileError") {
-                console.error(this.prettyPrintError(e, input));
+                let file = 'anonymous';
+                if (options && options.file != null) {
+                    file = options.file;
+                }
+                console.error(this.prettyPrintError(e, input, file));
             }
             throw e;
         }
@@ -60,7 +68,7 @@ export default class Compiler {
             .join("");
     }
 
-    private prettyPrintError(e: CompileError, text: string): string {
+    private prettyPrintError(e: CompileError, text: string, file: string): string {
         let i = 0;
 
         for (
@@ -79,7 +87,7 @@ export default class Compiler {
         pretty += "\n" + spacer + "^";
         pretty += "\n" + e;
 
-        return "\nCompilation error:\n\n" + pretty + "\n\n";
+        return `\n${ pretty }\n    at ${file}:${e.line}:${e.ch}\n`;
     }
 
     private getRule(t: Token): Rule {

@@ -4,7 +4,7 @@ export default class CompileError extends Error {
         public readonly line: number,
         public readonly ch: number
     ) {
-        super("[" + line + ":" + ch + "] " + message);
+        super(message);
         this.name = "CompileError";
     }
 }

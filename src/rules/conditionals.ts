@@ -1,46 +1,7 @@
-import { Context, Fragment, Rule } from "../CompilerInterface";
-import { Token } from "../Token";
+import { Context, Fragment, Rule } from '../CompilerInterface';
+import { ElseFragment, ElseIfFragment, EndIfFragment, IfFragment } from '../fragments/conditionals';
+import { Token } from '../Token';
 
-class IfFragment implements Fragment {
-    constructor(private readonly expr: string) {}
-
-    public render(): string {
-        return (
-            "' + \n" +
-            "(function() {\n" +
-            "    if (" +
-            this.expr +
-            ") {\n" +
-            "        return ('"
-        );
-    }
-}
-
-class ElseIfFragment implements Fragment {
-    constructor(private readonly expr: string) {}
-
-    public render(): string {
-        return (
-            "');\n" +
-            "    } else if (" +
-            this.expr +
-            ") {\n" +
-            "        return ('"
-        );
-    }
-}
-
-class ElseFragment implements Fragment {
-    public render(): string {
-        return "');\n" + "    } else {\n" + "        return ('";
-    }
-}
-
-class EndIfFragment implements Fragment {
-    public render(): string {
-        return "');\n" + "    }\n" + "    return '';" + "}()) + '";
-    }
-}
 
 export const IfRule: Rule = {
     name: "if",

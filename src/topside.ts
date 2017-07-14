@@ -1,18 +1,14 @@
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 
-import Compiler from "./Compiler";
-import {
-    WrapperAfterFragment,
-    WrapperBeforeFragment
-} from "./fragments/wrapper";
-import { ElseIfRule, ElseRule, EndIfRule, IfRule } from "./rules/conditionals";
-import { EndForRule, ForRule } from "./rules/for";
-import { ImportRule } from "./rules/import";
-import { ParamRule } from "./rules/param";
-import { PassThroughRule } from "./rules/passthrough";
-import { TextRule } from "./rules/text";
-
-export { __escape } from "./runtime/utils";
+import Compiler from './Compiler';
+import { WrapperAfterFragment, WrapperBeforeFragment } from './fragments/wrapper';
+import { ElseIfRule, ElseRule, EndIfRule, IfRule } from './rules/conditionals';
+import { EndForRule, ForRule } from './rules/for';
+import { HtmlRule } from './rules/html';
+import { ImportRule } from './rules/import';
+import { ParamRule } from './rules/param';
+import { PassThroughRule } from './rules/passthrough';
+import { TextRule } from './rules/text';
 
 /**
  * Global preconfigured compiler
@@ -23,6 +19,7 @@ export const compiler = new Compiler({
 });
 
 compiler.use(TextRule);
+compiler.use(HtmlRule);
 compiler.use(PassThroughRule);
 compiler.use(ImportRule);
 compiler.use(ParamRule);

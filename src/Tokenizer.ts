@@ -2,7 +2,7 @@ import CompileError from "./CompileError";
 import { AtRuleToken, TextToken, Token, TokenBuilder } from "./Token";
 import TextIterator from "./TextIterator";
 
-type TokenizerState = () => void;
+type TokenizerState = (eof: boolean) => void;
 
 const CHARCODE_a = "a".charCodeAt(0);
 const CHARCODE_z = "z".charCodeAt(0);
@@ -20,29 +20,39 @@ export default class Tokenizer {
     private currentToken: TokenBuilder = new TextToken(1, 1);
 
     public consume(buf: string): void {
+        this.assertNotEnded();
         this.it.feedChunk(buf.replace(/\r/g, ""));
-        if (this.ended === true) {
-            throw new Error("Parser already closed");
-        }
         while (this.it.hasNext()) {
-            this.state();
+            this.state(false);
         }
     }
 
     public close(): Token[] {
+        this.assertNotEnded();
         this.ended = true;
-        if (this.currentToken.type !== TextToken.type) {
+        this.state(true); // Send EOF to current state for parsing
+        this.tokens.push(this.currentToken.build());
+        return this.tokens;
+    }
+    
+    private assertNotEnded(): void {
+        if (this.ended === true) {
+            throw new Error("Parser already closed");
+        }
+    }
+    
+    private assertNotEOF(eof: boolean) {
+        if (eof) {
             throw new CompileError(
                 "Unexpected end of file",
                 this.it.getLine(),
                 this.it.getCh()
             );
         }
-        this.tokens.push(this.currentToken.build());
-        return this.tokens;
     }
 
-    private state_text(): void {
+    private state_text(eof: boolean): void {
+        if (eof) return;
         this.it.markSliceBegin();
         let c = "";
         for (
@@ -67,7 +77,8 @@ export default class Tokenizer {
         this.currentToken.data.push(this.it.getSlice());
     }
 
-    private state_textEscaped(): void {
+    private state_textEscaped(eof: boolean): void {
+        this.assertNotEOF(eof);
         this.currentToken.data.push(this.it.nextChar());
         this.state = this.state_text;
     }
@@ -77,7 +88,8 @@ export default class Tokenizer {
      * ^
      * Here
      */
-    private state_atRuleBegin(): void {
+    private state_atRuleBegin(eof: boolean): void {
+        this.assertNotEOF(eof);
         this.it.nextChar();
         this.state = this.state_atRuleName;
     }
@@ -87,7 +99,11 @@ export default class Tokenizer {
      *  ^^^^
      *  Here
      */
-    private state_atRuleName(): void {
+    private state_atRuleName(eof: boolean): void {
+        if (eof) {
+            // Rule with no parameter
+            return;
+        }
         this.it.markSliceBegin();
         let c = 0;
         for (
@@ -114,6 +130,7 @@ export default class Tokenizer {
                 return;
             }
         }
+        this.currentToken.ruleName.push(this.it.getSlice());
     }
 
     /**
@@ -121,7 +138,10 @@ export default class Tokenizer {
      *      ^^^
      *     Here
      */
-    private state_atRuleAwaitData(): void {
+    private state_atRuleAwaitData(eof: boolean): void {
+        if (eof) {
+            return;
+        }
         let c = "";
         for (
             c = this.it.currentChar();
@@ -134,7 +154,7 @@ export default class Tokenizer {
                     break;
                 // Rule has no data. It ends now
                 case "\n":
-                    this.state = this.state_text;
+                    this.state = this.state_atRuleEnd;
                     this.flushToken(
                         new TextToken(this.it.getLine(), this.it.getCh())
                     );
@@ -156,7 +176,8 @@ export default class Tokenizer {
      *         ^
      *        Here
      */
-    private state_atRuleOpenParen(): void {
+    private state_atRuleOpenParen(eof: boolean): void {
+        this.assertNotEOF(eof);
         this.hasOpenParen = true;
         this.charStack.push("(");
         this.it.nextChar();
@@ -168,7 +189,8 @@ export default class Tokenizer {
      *          ^^^^^^^^^
      *             Here
      */
-    private state_atRuleData(): void {
+    private state_atRuleData(eof: boolean): void {
+        this.assertNotEOF(eof);
         this.it.markSliceBegin();
         let c = "";
         for (
@@ -225,8 +247,13 @@ export default class Tokenizer {
      * @rule   (some data)
      *                   ^
      *                 Here
+     * 
+     * @simplerule
+     *            ^
+     *         or here
      */
-    private state_atRuleEnd(): void {
+    private state_atRuleEnd(eof: boolean): void {
+        this.assertNotEOF(eof);
         this.it.nextChar();
         this.state = this.state_text;
     }

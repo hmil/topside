@@ -6,18 +6,18 @@ process.stdout.write(template({
         'Stark',
         'Winter is coming',
         [{
-            name: 'Ned', sex: 'M', children: [
+            name: 'Ned', gender: 'M', children: [
             {
-                name: 'Arya', sex: 'F'
+                name: 'Arya', gender: 'F'
             }, {
-                name: 'Sansa', sex: 'F'
+                name: 'Sansa', gender: 'F'
             }, {
-                name: 'Robb', sex: 'M'
+                name: 'Robb', gender: 'M'
             }, {
-                name: '<strong>Jon</strong>', sex: 'M'
+                name: '<strong>Jon</strong>', gender: 'M'
             }]
         }, {
-            name: 'Catelyn', sex: 'F'
+            name: 'Catelyn', gender: 'F'
         }]
     )
 }));

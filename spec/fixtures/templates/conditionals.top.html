@@ -1,0 +1,26 @@
+
+@param safety: string
+
+@if safety === 'typesafe' 
+    1x safe
+@elseif safety === 'tddsafe'
+    1x sorta safe
+@else
+    1x not safe
+@endif
+
+@if safety === 'tddsafe' 
+    2x sorta safe
+@elseif safety === 'typesafe'
+    2x safe
+@else
+    2x not safe
+@endif
+
+@if safety === 'nottypesafe'
+    3x not safe
+@elseif safety === 'nottddsafe'
+    3x not sorta safe
+@else
+    3x safe
+@endif

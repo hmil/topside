@@ -1,19 +1,12 @@
-import { Context, Fragment, Rule } from "../CompilerInterface";
-import { Token } from "../Token";
-import { ImportContext } from "./import";
+import { Context, Fragment, Rule } from '../CompilerInterface';
+import { TextFragment } from '../fragments/text';
+import { Token } from '../Token';
+import { ImportContext } from './import';
 
 export interface TextContext extends Context {
     text: {
         hasImports: boolean;
     };
-}
-
-class TextFragment implements Fragment {
-    constructor(private readonly text: string) {}
-
-    public render(): string {
-        return "' + __escape(" + this.text + ") + '";
-    }
 }
 
 export const TextRule: Rule = {
@@ -27,7 +20,7 @@ export const TextRule: Rule = {
 
     analyze(ctx: TextContext & ImportContext, t: Token): Fragment {
         if (!ctx.text.hasImports) {
-            ctx.imports.push('{ __escape } from "topside"');
+            ctx.imports.push('* as __escape from "escape-html"');
             ctx.text.hasImports = true;
         }
         return new TextFragment(t.data);

@@ -1,13 +1,6 @@
-import { Context, Fragment, Rule } from "../CompilerInterface";
-import { Token } from "../Token";
-
-class HtmlFragment implements Fragment {
-    constructor(private readonly html: string) {}
-
-    public render(): string {
-        return "' + (" + this.html + ") + '";
-    }
-}
+import { Context, Fragment, Rule } from '../CompilerInterface';
+import { HtmlFragment } from '../fragments/html';
+import { Token } from '../Token';
 
 export const HtmlRule: Rule = {
     name: "html",

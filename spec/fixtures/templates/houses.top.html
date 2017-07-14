@@ -7,14 +7,14 @@
     <p><em>@(house.getMotto())</em></p>
     <ul>
         @for(person of house.people)
-            <li>@(person.name) @if(person.sex)[@(person.sex)]@endif
+            <li>@(person.name) @if(person.gender)[@(person.gender)]@endif()
                 @if(person.children)
                     <ul>
                         @for(child of person.children)
-                            <li>@(child.name) @if(child.sex)[@(child.sex)]@endif()</li>
+                            <li>@(child.name) @if(child.gender)[@(child.gender)]@endif()</li>
                         @endfor
                     </ul>
-                @elseif(person.sex === 'M')
+                @elseif(person.gender === 'M')
                     This character is not a father.
                 @else
                     This character is not a mother.
