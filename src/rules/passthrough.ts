@@ -6,6 +6,7 @@ export const PassThroughRule: Rule = {
     name: "passthrough",
 
     analyze(ctx: Context, t: Token): Fragment {
+        ctx;
         return new PassThroughFragment(t.data);
     }
 };

@@ -24,6 +24,9 @@ export default class TextIterator {
     }
 
     public nextChar(): string {
+        if (!this.hasNext()) {
+            throw new Error('Illegal state: iterator cannot move forward!');
+        }
         this.cursor++;
         this.ch++;
         const c = this.chunk.charAt(this.cursor);

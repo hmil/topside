@@ -6,6 +6,9 @@
   "rules": {
     "variable-name": [
       "allow-leading-underscore"
+    ],
+    "no-unused-expression": [
+      "allow-fast-null-checks"
     ]
   }
 }

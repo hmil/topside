@@ -7,6 +7,7 @@ export const ForRule: Rule = {
     name: "for",
 
     analyze(ctx: Context, t: Token): Fragment {
+        ctx;
         return new BeginForFragment(t.data);
     }
 };

@@ -7,6 +7,7 @@ export const IfRule: Rule = {
     name: "if",
 
     analyze(ctx: Context, t: Token): Fragment {
+        ctx;
         return new IfFragment(t.data);
     }
 };
@@ -23,6 +24,7 @@ export const ElseIfRule: Rule = {
     name: "elseif",
 
     analyze(ctx: Context, t: Token): Fragment {
+        ctx;
         return new ElseIfFragment(t.data);
     }
 };

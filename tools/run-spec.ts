@@ -1,4 +1,3 @@
-import { compiler } from '../src/topside';
 import * as path from 'path';
 import { diffLines } from 'diff';
 import * as fs from 'fs';
@@ -15,7 +14,7 @@ if (exec('bin/topside spec/fixtures/templates/*.top.html').code) {
 mkdir('spec/.output');
 
 let status = 0;
-const ok_specs = ls('spec/OK/*.ts');
+const ok_specs = ls('spec/tests/*.ts');
 
 for (let spec of ok_specs) {
     const parsed = path.parse(spec);

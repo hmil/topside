@@ -26,6 +26,7 @@ export const WrapperBeforeFragment: Fragment = {
 
 export const WrapperAfterFragment: Fragment = {
     render(ctx: Context): string {
+        ctx;
         return "');\n};";
     }
 };
