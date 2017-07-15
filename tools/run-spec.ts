@@ -3,7 +3,7 @@ import * as path from 'path';
 import { diffLines } from 'diff';
 import * as fs from 'fs';
 
-const { ls, exec, echo } = require('shelljs');
+const { ls, exec, echo, mkdir } = require('shelljs');
 const colors = require("colors");
 
 echo('Running specs...');
@@ -11,6 +11,8 @@ if (exec('bin/topside spec/fixtures/templates/*.top.html').code) {
     echo(colors.red('Failed to compile templates.'));
     process.exit(1);
 }
+
+mkdir('spec/.output');
 
 let status = 0;
 const ok_specs = ls('spec/OK/*.ts');

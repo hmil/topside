@@ -15,10 +15,9 @@ function processFile(arg: string): void {
 
     const filePath = path.parse(arg);
     filePath.ext = ".ts";
-    delete filePath.base;
+    filePath.base = filePath.name + filePath.ext;
 
     const dest = path.resolve(path.format(filePath));
-
     fs.writeFileSync(dest, compiled);
 }
 
