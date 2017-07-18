@@ -6,7 +6,7 @@
             "request": "launch",
             "name": "Launch Typescript",
             "program": "${workspaceRoot}/dist/cli",
-            "args": ["${workspaceRoot}/spec/fixtures/templates/hello_world.top.html"],
+            "args": ["${workspaceRoot}/spec/fixtures/templates/at_char.top.html"],
             "cwd": "${workspaceRoot}",
             "outFiles": [
                 "${workspaceRoot}/dist/**/*.js"

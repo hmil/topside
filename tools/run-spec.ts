@@ -43,9 +43,9 @@ function do_diff(expected: string, actual: string) {
         }
     ).forEach((part) => {
         if(part.added) {
-            diff += colors.green('+ ' + part.value);
+            diff += colors.green('+ ' + part.value) + '\n';
         } else if (part.removed) {
-            diff += colors.red('- ' + part.value);
+            diff += colors.red('- ' + part.value) + '\n';
         }
     });
     return diff;

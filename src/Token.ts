@@ -18,10 +18,10 @@ export abstract class TokenBuilder {
     public build(): Token {
         return new Token(
             this.type,
-            this.data.join(),
+            this.data.join(''),
             this.line,
             this.ch,
-            this.ruleName.join()
+            this.ruleName.join('')
         );
     }
 }

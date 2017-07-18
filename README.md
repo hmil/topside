@@ -150,3 +150,8 @@ Each has a number:
 - @(i): @(animals[i])
 @endfor
 ```
+
+#### Litteral '@' symbol
+
+You could print a literal `@` by using string interpolation `@('@')` but topside provides a cleaner alternative: Simply type `@@` to print one `@`.  
+`hello@@world` => `hello@world`

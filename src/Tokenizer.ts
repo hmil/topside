@@ -34,13 +34,13 @@ export default class Tokenizer {
         this.tokens.push(this.currentToken.build());
         return this.tokens;
     }
-    
+
     private assertNotEnded(): void {
         if (this.ended === true) {
             throw new Error("Parser already closed");
         }
     }
-    
+
     private assertNotEOF(eof: boolean) {
         if (eof) {
             throw new CompileError(
@@ -60,27 +60,26 @@ export default class Tokenizer {
             this.it.hasNext();
             c = this.it.nextChar()
         ) {
-            switch (c) {
-                case "@":
-                    this.currentToken.data.push(this.it.getSlice());
-                    this.flushToken(
-                        new AtRuleToken(this.it.getLine(), this.it.getCh())
-                    );
-                    this.state = this.state_atRuleBegin;
-                    return;
-                case "\\":
-                    this.currentToken.data.push(this.it.getSlice());
-                    this.state = this.state_textEscaped;
-                    return;
+            if (c === '@') {
+                this.currentToken.data.push(this.it.getSlice());
+                this.state = this.state_atRuleBegin;
+                return;
             }
         }
         this.currentToken.data.push(this.it.getSlice());
     }
 
-    private state_textEscaped(eof: boolean): void {
+
+    /**
+     * @@
+     *  ^
+     * Here
+     */
+    private state_atChar(eof: boolean): void {
         this.assertNotEOF(eof);
-        this.currentToken.data.push(this.it.nextChar());
+        this.it.nextChar();
         this.state = this.state_text;
+        this.currentToken.data.push('@');
     }
 
     /**
@@ -90,8 +89,15 @@ export default class Tokenizer {
      */
     private state_atRuleBegin(eof: boolean): void {
         this.assertNotEOF(eof);
-        this.it.nextChar();
-        this.state = this.state_atRuleName;
+        const c = this.it.nextChar();
+        if (c === '@') {
+            this.state = this.state_atChar;
+        } else {
+            this.flushToken(
+                new AtRuleToken(this.it.getLine(), this.it.getCh())
+            );
+            this.state = this.state_atRuleName;
+        }
     }
 
     /**
@@ -119,8 +125,8 @@ export default class Tokenizer {
                 ) {
                     throw new CompileError(
                         'Unexpected char: "' +
-                            c +
-                            '"\n " ", "(" or "\n" expected',
+                            String.fromCharCode(c) +
+                            '"\nexpected " ", "(" or "\\n"',
                         this.it.getLine(),
                         this.it.getCh()
                     );
