@@ -61,7 +61,7 @@ The syntax is based off of the [Blade templating engine](https://laravel.com/doc
 While there is no intention to be 100% compatible with Blade, templates should be easily convertible from one to the other.
 
 **Work in progress:** Many features are missing compared to Blade. Those will be added eventually but development effort is currently focused on tooling and IDE integration.  
-Take a look at the `spec/fixtures/tempaltes` directory for a comprehensive list of features.
+Take a look at the `spec/fixtures/templates` directory for a comprehensive list of features.
 
 #### Basics & differences with Blade
 
