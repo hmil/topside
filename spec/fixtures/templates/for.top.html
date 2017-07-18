@@ -5,3 +5,8 @@
 @for(name of names)
  - @ name
 @endfor
+
+## Numbered
+@for(i = 0 ; i < names.length ; i++)
+ - @(i) @ names[i]
+@endfor

@@ -57,7 +57,7 @@ node_modules/.bin/ts-node main.ts
 
 ### Template syntax
 
-The syntax is based off of the [blade templating engine](https://laravel.com/docs/5.4/blade) used in [Laravel](https://laravel.com/).
+The syntax is based off of the [Blade templating engine](https://laravel.com/docs/5.4/blade) used in [Laravel](https://laravel.com/).
 While there is no intention to be 100% compatible with Blade, templates should be easily convertible from one to the other.
 
 **Work in progress:** Many features are missing compared to Blade. Those will be added eventually but development effort is currently focused on tooling and IDE integration.  
@@ -72,7 +72,7 @@ In topside, all instructions start with `@`. Use braces to pass parameters to a 
 @endif
 ```
 
-Not that contrary to many templating languages, including blade, topside doesn't support curly-braces based syntax.
+Not that contrary to many templating languages, including Blade, topside doesn't support curly-braces based syntax.
 
 ```
 DON'T: {{ something }}
@@ -89,13 +89,13 @@ Display javascript expressions using the `@` directive:
 <h1>Hello @("John")</h1>
 ```
 
-By default, values are html-escaped. User `@html` to display unescaped text:
+By default, values are html-escaped. Use `@html` to display unescaped text:
 
 ```
 <h1>Hello @html("<b>John</b>")</h1>
 ```
 
-**To blade users:** Don't use brackets-based syntax (`{{ text }}` and similar). In topside, all instructions start with `@`.
+**To Blade users:** Don't use brackets-based syntax (`{{ text }}` and similar). In topside, all instructions start with `@`.
 
 #### Parameters
 
@@ -143,5 +143,10 @@ The `@for` rule is merely a translation to the `for` TypeScript construct.
 In the farm there are:
 @for(animal of animals)
 - @(animal)
+@endfor
+
+Each has a number:
+@for(i = 0 ; i < 10 ; i++)
+- @(i): @(animals[i])
 @endfor
 ```

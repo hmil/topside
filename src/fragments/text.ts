@@ -5,6 +5,6 @@ export class TextFragment implements Fragment {
     constructor(private readonly text: string) {}
 
     public render(): string {
-        return "' + __escape(" + this.text + ") + '";
+        return "' + __escape('' + (" + this.text + ")) + '";
     }
 }
