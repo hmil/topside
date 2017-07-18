@@ -1,3 +1,4 @@
+import { CommentRule } from './rules/comment';
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 
 import Compiler from './Compiler';
@@ -29,6 +30,7 @@ compiler.use(IfRule);
 compiler.use(ElseIfRule);
 compiler.use(ElseRule);
 compiler.use(EndIfRule);
+compiler.use(CommentRule);
 
 compiler.addFragment("before", WrapperBeforeFragment);
 compiler.addFragment("after", WrapperAfterFragment);

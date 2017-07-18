@@ -155,3 +155,15 @@ Each has a number:
 
 You could print a literal `@` by using string interpolation `@('@')` but topside provides a cleaner alternative: Simply type `@@` to print one `@`.  
 `hello@@world` => `hello@world`
+
+#### Comments
+
+The `--` rule allows you to write comments in the template. Such comments are completely removed from the produced output.
+
+```
+@--  Comments
+@-- This comment will be stripped
+@-- entirely from the output
+
+I @--(don't)like the cake@--( is a lie)
+```

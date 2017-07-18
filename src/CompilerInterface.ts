@@ -9,7 +9,7 @@ export interface Fragment {
 export interface Rule {
     name: string;
     initContext?(ctx: Context): void;
-    analyze(ctx: Context, t: Token): Fragment;
+    analyze(ctx: Context, t: Token): Fragment | Fragment[];
 }
 
 export interface RuleBook {

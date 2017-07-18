@@ -58,10 +58,10 @@ export default class Compiler {
             }
         }
 
-        let fragments = tokens.map(t => {
+        let fragments = tokens.reduce((acc, t) => {
             const rule = this.getRule(t);
-            return rule.analyze(context, t);
-        });
+            return acc.concat(rule.analyze(context, t));
+        }, [] as Fragment[]);
 
         return [...this.fragmentsBefore, ...fragments, ...this.fragmentsAfter]
             .map(t => t.render(context))
@@ -100,7 +100,7 @@ export default class Compiler {
                 return this.rules[t.ruleName];
             } else {
                 throw new CompileError(
-                    `Invalid rule name: "${t.ruleName}"`,
+                    `Unknown rule: "${t.ruleName}"`,
                     t.line,
                     t.ch
                 );

@@ -9,6 +9,8 @@ const CHARCODE_z = "z".charCodeAt(0);
 const CHARCODE_OPEN_PAREN = "(".charCodeAt(0);
 const CHARCODE_SPACE = " ".charCodeAt(0);
 const CHARCODE_NL = "\n".charCodeAt(0);
+const CHARCODE_MINUS = "-".charCodeAt(0);
+const CHARCODE_UNDERSCORE = "_".charCodeAt(0);
 
 export default class Tokenizer {
     private state: TokenizerState = this.state_text;
@@ -117,7 +119,7 @@ export default class Tokenizer {
             this.it.hasNext();
             c = this.it.nextCharCode()
         ) {
-            if (c < CHARCODE_a || c > CHARCODE_z) {
+            if ((c < CHARCODE_a || c > CHARCODE_z) && c !== CHARCODE_MINUS && c !== CHARCODE_UNDERSCORE) {
                 if (
                     c !== CHARCODE_NL &&
                     c !== CHARCODE_OPEN_PAREN &&
