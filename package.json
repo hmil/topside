@@ -57,7 +57,6 @@
   },
   "devDependencies": {
     "@types/diff": "^3.2.0",
-    "@types/escape-html": "0.0.19",
     "@types/jest": "^20.0.0",
     "@types/minimist": "^1.2.0",
     "@types/node": "^8.0.0",
@@ -66,7 +65,6 @@
     "cross-env": "^5.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "diff": "^3.3.0",
-    "escape-html": "^1.0.3",
     "husky": "^0.14.0",
     "lint-staged": "^4.0.0",
     "lodash.camelcase": "^4.3.0",
@@ -91,6 +89,10 @@
     "validate-commit-msg": "^2.12.2"
   },
   "peerDependencies": {
+    "escape-html": "1.x",
+    "@types/escape-html": ">=0.0.19"
+  },
+  "dependencies": {
     "escape-html": "1.x",
     "@types/escape-html": ">=0.0.19"
   }
