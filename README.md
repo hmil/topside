@@ -7,17 +7,18 @@ Topside is a templating library for TypeScript providing type-safety to the view
 
 ### Motivation
 
-The view layer has been a neglected weak spot in web application frameworks, even when the language supporting the model and controller layer allows type-safety.
-Unsafe templates allow you to publish code with typos, and errors and make refactoring views a daunting task.
+The view layer is often times a weak spot in web application frameworks. Unsafe templates allow you to publish code with typos and errors and make it hard to refactor views.
 
-Topside will prevent your app from compiling if there are any discrepancy between your app code and your templates. Moreover, with proper tooling, topside could leverage TypeScript support in common IDEs to provide comprehensive and accurate auto-completion while you write your templates!
+Topside prevents your app from compiling if there are any discrepancy between app code and templates. Moreover, with proper tooling, topside could leverage TypeScript support in common IDEs to provide comprehensive and accurate auto-completion while you write your templates!
 
 #### Scope
 
-Topside is not meant to be a replacement for front-end frameworks such as Vue or React. Topside templates produce text only, there is no event-binding whatsover. This library targets server-side rendering.
-Topside is particularly suited for server-only apps or hybrid apps where a substancial amount of view is generated on the server.
+Topside is not meant to be a replacement for front-end frameworks such as Vue or React. Topside templates produce text only, there is no event-binding. This library targets server-side rendering.
+Topside is particularly suited for server-only apps or hybrid apps where a substancial amount of the view is generated on the server.
 
 ### Usage
+
+This package allows you to compile topside templates to TypeScript module. Each template exports a default function that takes named parameters as input and returns a string.
 
 Install the CLI compiler package and the TypeScript compiler.
 
