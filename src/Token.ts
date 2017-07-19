@@ -1,9 +1,12 @@
-export class Token {
+import { ISourcePosition } from './ISourcePosition';
+
+export class Token implements ISourcePosition {
     constructor(
         public readonly type: string,
         public readonly data: string,
         public readonly line: number,
         public readonly ch: number,
+        public readonly file: string,
         public readonly ruleName: string
     ) {}
 }
@@ -13,7 +16,11 @@ export abstract class TokenBuilder {
     public data: string[] = [];
     public ruleName: string[] = [];
 
-    constructor(public readonly line: number, public readonly ch: number) {}
+    constructor(
+            public readonly line: number,
+            public readonly ch: number,
+            public readonly file: string
+    ) {}
 
     public build(): Token {
         return new Token(
@@ -21,6 +28,7 @@ export abstract class TokenBuilder {
             this.data.join(''),
             this.line,
             this.ch,
+            this.file,
             this.ruleName.join('')
         );
     }

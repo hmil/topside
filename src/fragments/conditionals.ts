@@ -1,8 +1,13 @@
+import { ISourcePosition } from '../ISourcePosition';
 import { Fragment } from '../CompilerInterface';
 
 
-export class IfFragment implements Fragment {
-    constructor(private readonly expr: string) {}
+export class IfFragment extends Fragment {
+    constructor(
+            position: ISourcePosition,
+            private readonly expr: string) {
+        super(position);
+    }
 
     public render(): string {
         return (
@@ -16,8 +21,12 @@ export class IfFragment implements Fragment {
     }
 }
 
-export class ElseIfFragment implements Fragment {
-    constructor(private readonly expr: string) {}
+export class ElseIfFragment extends Fragment {
+    constructor(
+            position: ISourcePosition,
+            private readonly expr: string) {
+        super(position);
+    }
 
     public render(): string {
         return (
@@ -30,13 +39,14 @@ export class ElseIfFragment implements Fragment {
     }
 }
 
-export class ElseFragment implements Fragment {
+export class ElseFragment extends Fragment {
+
     public render(): string {
         return "');\n" + "    } else {\n" + "        return ('";
     }
 }
 
-export class EndIfFragment implements Fragment {
+export class EndIfFragment extends Fragment {
     public render(): string {
         return "');\n" + "    }\n" + "    return '';" + "}()) + '";
     }

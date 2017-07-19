@@ -19,7 +19,12 @@ export default class Tokenizer {
     private hasOpenParen: boolean = false;
     private ended: boolean = false;
     private tokens: Token[] = [];
-    private currentToken: TokenBuilder = new TextToken(1, 1);
+    private currentToken: TokenBuilder;
+
+    constructor(
+            private readonly file: string) {
+        this.currentToken = new TextToken(1, 1, file);
+    }
 
     public consume(buf: string): void {
         this.assertNotEnded();
@@ -96,7 +101,7 @@ export default class Tokenizer {
             this.state = this.state_atChar;
         } else {
             this.flushToken(
-                new AtRuleToken(this.it.getLine(), this.it.getCh())
+                new AtRuleToken(this.it.getLine(), this.it.getCh(), this.file)
             );
             this.state = this.state_atRuleName;
         }
@@ -164,7 +169,7 @@ export default class Tokenizer {
                 case "\n":
                     this.state = this.state_atRuleEnd;
                     this.flushToken(
-                        new TextToken(this.it.getLine(), this.it.getCh())
+                        new TextToken(this.it.getLine(), this.it.getCh(), this.file)
                     );
                     return;
                 // Rule has parenthesized data, it ends when the parenthesis is matched.
@@ -227,7 +232,8 @@ export default class Tokenizer {
                             this.flushToken(
                                 new TextToken(
                                     this.it.getLine(),
-                                    this.it.getCh()
+                                    this.it.getCh(),
+                                    this.file
                                 )
                             );
                             this.state = this.state_atRuleEnd;
@@ -240,7 +246,7 @@ export default class Tokenizer {
                     if (!this.hasOpenParen) {
                         this.currentToken.data.push(this.it.getSlice());
                         this.flushToken(
-                            new TextToken(this.it.getLine(), this.it.getCh())
+                            new TextToken(this.it.getLine(), this.it.getCh(), this.file)
                         );
                         this.state = this.state_atRuleEnd;
                         return;
@@ -255,7 +261,7 @@ export default class Tokenizer {
      * @rule   (some data)
      *                   ^
      *                 Here
-     * 
+     *
      * @simplerule
      *            ^
      *         or here

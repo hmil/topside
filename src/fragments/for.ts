@@ -1,8 +1,13 @@
+import { ISourcePosition } from '../ISourcePosition';
 import { Fragment } from '../CompilerInterface';
 
 
-export class BeginForFragment implements Fragment {
-    constructor(private readonly expr: string) {}
+export class BeginForFragment extends Fragment {
+    constructor(
+            position: ISourcePosition,
+            private readonly expr: string) {
+        super(position);
+    }
 
     public render(): string {
         return (
@@ -17,7 +22,7 @@ export class BeginForFragment implements Fragment {
     }
 }
 
-export class EndForFragment implements Fragment {
+export class EndForFragment extends Fragment {
     public render(): string {
         return "');\n" + "    }\n" + "    return __acc;\n" + "}()) + '";
     }

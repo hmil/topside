@@ -35,6 +35,6 @@ export const ParamRule: Rule = {
             name: parts[0].trim(),
             type: parts[1].trim().replace(SEMICOLON_RX, "")
         });
-        return new NullFragment();
+        return new NullFragment(t);
     }
 };

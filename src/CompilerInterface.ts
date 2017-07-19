@@ -1,9 +1,25 @@
+import { ISourcePosition } from './ISourcePosition';
 import { Token } from "./Token";
 
 export class Context {}
 
-export interface Fragment {
-    render(ctx: Context): string;
+export interface FragmentCtr {
+    new (position: ISourcePosition): Fragment;
+}
+
+export abstract class Fragment implements ISourcePosition {
+    public readonly line: number;
+    public readonly ch: number;
+    public readonly file: string;
+
+    constructor(
+            position: ISourcePosition) {
+        this.line = position.line;
+        this.ch = position.ch;
+        this.file = position.file;
+    }
+
+    public abstract render(ctx: Context): string;
 }
 
 export interface Rule {

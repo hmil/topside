@@ -1,15 +1,16 @@
-import { Context, Fragment, Rule, RuleBook } from "./CompilerInterface";
+import { Context, Fragment, FragmentCtr, Rule, RuleBook } from './CompilerInterface';
 import CompileError from "./CompileError";
 import { AtRuleToken, TextToken, Token } from "./Token";
 import Tokenizer from "./Tokenizer";
+import { SourceNode, CodeWithSourceMap } from 'source-map';
 
 export interface CompilerOptions {
-    file?: string
+    file: string
 };
 
 export default class Compiler {
-    private fragmentsBefore: Fragment[] = [];
-    private fragmentsAfter: Fragment[] = [];
+    private fragmentsBefore: FragmentCtr[] = [];
+    private fragmentsAfter: FragmentCtr[] = [];
 
     constructor(private rules: RuleBook) {}
 
@@ -22,7 +23,7 @@ export default class Compiler {
         this.rules[rule.name] = rule;
     }
 
-    public addFragment(position: "before" | "after", f: Fragment): void {
+    public addFragment(position: "before" | "after", f: FragmentCtr): void {
         if (position === "after") {
             this.fragmentsAfter.splice(0, 0, f);
         } else {
@@ -30,12 +31,12 @@ export default class Compiler {
         }
     }
 
-    public compile(input: string, options?: CompilerOptions): string {
+    public compile(input: string, options: CompilerOptions): CodeWithSourceMap {
         try {
-            const tokenizer = new Tokenizer();
+            const tokenizer = new Tokenizer(options.file);
             tokenizer.consume(input);
             const tokens = tokenizer.close();
-            return this.processTokens(tokens);
+            return this.processTokens(tokens, options);
         } catch (e) {
             if (e.name === "CompileError") {
                 let file = 'anonymous';
@@ -48,7 +49,7 @@ export default class Compiler {
         }
     }
 
-    public processTokens(tokens: Token[]): string {
+    public processTokens(tokens: Token[], options: CompilerOptions): CodeWithSourceMap {
         const context = new Context();
 
         for (let i of Object.keys(this.rules)) {
@@ -58,14 +59,25 @@ export default class Compiler {
             }
         }
 
-        let fragments = tokens.reduce((acc, t) => {
+        const fragments = tokens.reduce((acc, t) => {
             const rule = this.getRule(t);
             return acc.concat(rule.analyze(context, t));
         }, [] as Fragment[]);
 
-        return [...this.fragmentsBefore, ...fragments, ...this.fragmentsAfter]
-            .map(t => t.render(context))
-            .join("");
+        const dummyPosition = {
+            line: 1, ch: 0, file: options.file
+        }
+
+        let before = this.fragmentsBefore.map((f) => new f(dummyPosition));
+        let after = this.fragmentsAfter.map((f) => new f(dummyPosition));
+
+        const root = new SourceNode(0, 0, 'TODO', [...before, ...fragments, ...after]
+            .map((f) => {
+                return new SourceNode(f.line, f.ch, f.file || '', f.render(context));
+            })
+        );
+
+        return root.toStringWithSourceMap();
     }
 
     private prettyPrintError(e: CompileError, text: string, file: string): string {

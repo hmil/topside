@@ -8,15 +8,16 @@ export const IfRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         ctx;
-        return new IfFragment(t.data);
+        return new IfFragment(t, t.data);
     }
 };
 
 export const ElseRule: Rule = {
     name: "else",
 
-    analyze(): Fragment {
-        return new ElseFragment();
+    analyze(ctx: Context, t: Token): Fragment {
+        ctx;
+        return new ElseFragment(t);
     }
 };
 
@@ -25,14 +26,15 @@ export const ElseIfRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         ctx;
-        return new ElseIfFragment(t.data);
+        return new ElseIfFragment(t, t.data);
     }
 };
 
 export const EndIfRule: Rule = {
     name: "endif",
 
-    analyze(): Fragment {
-        return new EndIfFragment();
+    analyze(ctx: Context, t: Token): Fragment {
+        ctx;
+        return new EndIfFragment(t);
     }
 };

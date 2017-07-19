@@ -1,8 +1,13 @@
+import { ISourcePosition } from '../ISourcePosition';
 import { Fragment } from '../CompilerInterface';
 
 
-export class HtmlFragment implements Fragment {
-    constructor(private readonly html: string) {}
+export class HtmlFragment extends Fragment {
+    constructor(
+            position: ISourcePosition,
+            private readonly html: string) {
+        super(position);
+    }
 
     public render(): string {
         return "' + (" + this.html + ") + '";

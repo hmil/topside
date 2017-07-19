@@ -7,6 +7,6 @@ export const HtmlRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         ctx;
-        return new HtmlFragment(t.data);
+        return new HtmlFragment(t, t.data);
     }
 };

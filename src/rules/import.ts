@@ -18,6 +18,6 @@ export const ImportRule: Rule = {
     analyze(ctx: ImportContext, t: Token): Fragment {
         const importExpr = t.data.trim().replace(SEMICOLON_RX, "");
         ctx.imports.push(importExpr);
-        return new NullFragment();
+        return new NullFragment(t);
     }
 };

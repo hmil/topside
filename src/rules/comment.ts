@@ -1,10 +1,12 @@
+import { Token } from '../Token';
 import NullFragment from '../fragments/null';
-import { Fragment, Rule } from '../CompilerInterface';
+import { Context, Fragment, Rule } from '../CompilerInterface';
 
 export const CommentRule: Rule = {
     name: "--",
 
-    analyze(): Fragment {
-        return new NullFragment();
+    analyze(ctx: Context, t: Token): Fragment {
+        ctx;
+        return new NullFragment(t);
     }
 };
