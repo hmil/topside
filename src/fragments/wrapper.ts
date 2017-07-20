@@ -2,7 +2,8 @@ import { Context, Fragment } from "../CompilerInterface";
 import { ImportContext } from "../rules/import";
 import { ParamsContext } from "../rules/param";
 
-export const WrapperBeforeFragment: Fragment = {
+export class WrapperBeforeFragment extends Fragment {
+
     render(ctx: ImportContext & ParamsContext): string {
         const argsExpr = "{" +
                 ctx.params.map(p => p.name).join(", ") +
@@ -22,9 +23,10 @@ export const WrapperBeforeFragment: Fragment = {
             "    return (\n'"
         );
     }
-};
+}
 
-export const WrapperAfterFragment: Fragment = {
+export class WrapperAfterFragment extends Fragment {
+
     render(ctx: Context): string {
         ctx;
         return "');\n};";

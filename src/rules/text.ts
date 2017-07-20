@@ -23,6 +23,6 @@ export const TextRule: Rule = {
             ctx.imports.push('* as __escape from "escape-html"');
             ctx.text.hasImports = true;
         }
-        return new TextFragment(t.data);
+        return new TextFragment(t, t.data);
     }
 };

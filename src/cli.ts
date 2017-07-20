@@ -1,8 +1,8 @@
 import { compiler } from "./topside";
 
-import * as minimist from "minimist";
-import * as fs from "fs";
-import * as path from "path";
+import * as minimist from 'minimist';
+import * as fs from 'fs';
+import * as path from 'path';
 
 let argv = minimist(process.argv.slice(2));
 
@@ -18,7 +18,8 @@ function processFile(arg: string): void {
     filePath.base = filePath.name + filePath.ext;
 
     const dest = path.resolve(path.format(filePath));
-    fs.writeFileSync(dest, compiled);
+    fs.writeFileSync(dest, compiled.code + "\n//# sourceMappingURL=" + filePath.name + '.ts.map');
+    fs.writeFileSync(dest + '.map', compiled.map);
 }
 
 for (let i = 0 ; i < argv._.length ; i++) {

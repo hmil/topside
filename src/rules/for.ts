@@ -8,14 +8,15 @@ export const ForRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         ctx;
-        return new BeginForFragment(t.data);
+        return new BeginForFragment(t, t.data);
     }
 };
 
 export const EndForRule: Rule = {
     name: "endfor",
 
-    analyze(): Fragment {
-        return new EndForFragment();
+    analyze(ctx: Context, t: Token): Fragment {
+        ctx;
+        return new EndForFragment(t);
     }
 };
