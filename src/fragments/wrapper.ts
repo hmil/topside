@@ -1,10 +1,8 @@
 import { Context, Fragment } from "../CompilerInterface";
-import { ImportContext } from "../rules/import";
-import { ParamsContext } from "../rules/param";
 
 export class WrapperBeforeFragment extends Fragment {
 
-    render(ctx: ImportContext & ParamsContext): string {
+    render(ctx: Context): string {
         const argsExpr = "{" +
                 ctx.params.map(p => p.name).join(", ") +
             "}: {" +

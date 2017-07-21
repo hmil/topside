@@ -10,18 +10,20 @@ export interface TemplateParameter {
     type: string;
 }
 
-export interface ParamsContext extends Context {
-    params: TemplateParameter[];
+declare module "../CompilerInterface" {
+    interface Context {
+        params: TemplateParameter[]
+    }
 }
 
 export const ParamRule: Rule = {
     name: "param",
 
-    initContext(ctx: ParamsContext): void {
+    initContext(ctx: Context): void {
         ctx.params = [];
     },
 
-    analyze(ctx: ParamsContext, t: Token): Fragment {
+    analyze(ctx: Context, t: Token): Fragment {
         const parts = t.data.split(":");
         if (parts.length === 1) {
             let errorPos = t.ch + ParamRule.name.length + 2;
