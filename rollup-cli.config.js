@@ -13,7 +13,7 @@ export default {
   ],
   sourceMap: true,
   // Indicate here all modules required by cli
-  external: [ 'minimist', 'fs', 'topside', 'path' ],
+  external: [ 'minimist', 'fs', 'glob', 'path' ],
   plugins: [
     // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
     commonjs(),

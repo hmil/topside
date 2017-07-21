@@ -3,6 +3,7 @@ import { compiler } from "./topside";
 import * as minimist from 'minimist';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as glob from 'glob';
 
 let argv = minimist(process.argv.slice(2));
 
@@ -23,5 +24,8 @@ function processFile(arg: string): void {
 }
 
 for (let i = 0 ; i < argv._.length ; i++) {
-    processFile(argv._[i]);
+    glob(argv._[i], (err, files) => {
+        if (err) throw err;
+        files.forEach(processFile);
+    });
 }

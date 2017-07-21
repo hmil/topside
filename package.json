@@ -37,7 +37,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "clean": "rimraf spec/.output spec/fixtures/templates/*.ts compiled dist",
+    "clean": "rimraf spec/.output spec/fixtures/templates/*.ts spec/fixtures/templates/*.map compiled dist",
     "prepush": "npm run clean && npm run build && npm run test:prod",
     "commitmsg": "validate-commit-msg"
   },
@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@types/diff": "^3.2.0",
+    "@types/glob": "^5.0.30",
     "@types/jest": "^20.0.0",
     "@types/minimist": "^1.2.0",
     "@types/node": "^8.0.0",
@@ -69,7 +70,6 @@
     "husky": "^0.14.0",
     "lint-staged": "^4.0.0",
     "lodash.camelcase": "^4.3.0",
-    "minimist": "^1.2.0",
     "prettier": "^1.4.4",
     "prompt": "^1.0.0",
     "replace-in-file": "^2.5.0",
@@ -96,6 +96,8 @@
   "dependencies": {
     "@types/escape-html": ">=0.0.19",
     "escape-html": "1.x",
+    "glob": "^7.1.2",
+    "minimist": "^1.2.0",
     "source-map": "^0.5.6"
   }
 }
