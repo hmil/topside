@@ -133,9 +133,9 @@ export default class Tokenizer {
                     throw new CompileError(
                         'Unexpected char: "' +
                             String.fromCharCode(c) +
-                            '"\nexpected " ", "(" or "\\n"',
+                            '"\nexpected "[a-z_-]", "(", space or end of line',
                         this.it.getLine(),
-                        this.it.getCh()
+                        this.it.getCh() - 1
                     );
                 }
                 this.currentToken.ruleName.push(this.it.getSlice());
