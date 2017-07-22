@@ -101,7 +101,7 @@ export default class Tokenizer {
             this.state = this.state_atChar;
         } else {
             this.flushToken(
-                new AtRuleToken(this.it.getLine(), this.it.getCh(), this.file)
+                new AtRuleToken(this.it.getLine(), this.it.getCh() - 1, this.file)
             );
             this.state = this.state_atRuleName;
         }

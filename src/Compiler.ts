@@ -89,7 +89,7 @@ export default class Compiler {
             i++, line += text.charAt(i) === "\n" ? 1 : 0
         );
 
-        let pretty = text.substr(i);
+        let pretty = text.substr(i + 1);
         let nextNL = pretty.indexOf("\n");
         if (nextNL !== -1) {
             pretty = pretty.substr(0, nextNL);
