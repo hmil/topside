@@ -60,6 +60,7 @@
     "@types/glob": "^5.0.30",
     "@types/jest": "^20.0.0",
     "@types/minimist": "^1.2.0",
+    "@types/mkdirp": "^0.5.0",
     "@types/node": "^8.0.0",
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
@@ -93,11 +94,12 @@
     "@types/escape-html": ">=0.0.19"
   },
   "dependencies": {
-    "@types/source-map": "^0.5.0",
     "@types/escape-html": ">=0.0.19",
+    "@types/source-map": "^0.5.0",
     "escape-html": "1.x",
     "glob": "^7.1.2",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "source-map": "^0.5.6"
   }
 }
