@@ -1,3 +1,3 @@
-import template from '../fixtures/templates/noparam.top';
+import template from '../output/views/noparam.top';
 
 process.stdout.write(template());

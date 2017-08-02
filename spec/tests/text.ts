@@ -1,4 +1,4 @@
-import template from '../fixtures/templates/text.top';
+import template from '../output/views/text.top';
 
 process.stdout.write(template({
     text: 'John Cena'

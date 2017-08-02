@@ -1,4 +1,4 @@
-import template from '../fixtures/templates/for.top';
+import template from '../output/views/for.top';
 
 process.stdout.write(template({
     names: [

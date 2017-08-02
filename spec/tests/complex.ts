@@ -1,5 +1,5 @@
 import House from '../fixtures/models/House';
-import template from '../fixtures/templates/houses.top';
+import template from '../output/views/houses.top';
 
 process.stdout.write(template({
     house: new House(

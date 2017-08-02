@@ -1,3 +1,3 @@
-import template from '../fixtures/templates/at_char.top';
+import template from '../output/views/at_char.top';
 
 process.stdout.write(template());

@@ -1,3 +1,3 @@
-import template from '../fixtures/templates/comments.top';
+import template from '../output/views/comments.top';
 
 process.stdout.write(template());

@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/hmil/topside.svg?branch=master)](https://travis-ci.org/hmil/topside)
+[![Dependencies Status](https://david-dm.org/hmil/topside/status.svg)](https://david-dm.org/hmil/topside)
 [![Dev Dependencies](https://david-dm.org/hmil/topside/dev-status.svg)](https://david-dm.org/hmil/topside?type=dev)
 
 # Topside
