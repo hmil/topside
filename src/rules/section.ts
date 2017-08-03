@@ -1,4 +1,4 @@
-import { BeginSectionFragment, EndSectionFragment, YieldFragment, ParentFragment } from '../fragments/section';
+import { BeginSectionFragment, EndSectionFragment, ParentFragment, ShowFragment, YieldFragment } from '../fragments/section';
 import { Context, Fragment, Rule } from "../CompilerInterface";
 import { Token } from "../Token";
 
@@ -13,7 +13,7 @@ declare module "../CompilerInterface" {
 
 export const SectionRule: Rule = {
     name: "section",
-    
+
     initContext(ctx: Context): void {
         ctx.sections = {
             names: [ ]
@@ -57,3 +57,11 @@ export const YieldRule: Rule = {
         return new YieldFragment(t, name);
     }
 };
+
+export const ShowRule: Rule = {
+    name: "show",
+
+    analyze(_ctx: Context, t: Token): Fragment {
+        return new ShowFragment(t);
+    }
+}

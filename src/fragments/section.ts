@@ -11,15 +11,12 @@ export class BeginSectionFragment extends Fragment {
 
     public render(): string {
         return `' + (() => {
-            __sections['${this.name}'] = ((__parent: () => string) => __safeSection(__safeChildSections['${this.name}'])(() => '`;
+            const __sectionName = '${this.name}';
+            __sections[__sectionName] = ((__parent: () => string) => __safeSection(__safeChildSections[__sectionName])(() => '`;
     }
 }
 
 export class EndSectionFragment extends Fragment {
-    constructor(
-            position: ISourcePosition) {
-        super(position);
-    }
 
     public render(): string {
         return `'));
@@ -29,10 +26,6 @@ export class EndSectionFragment extends Fragment {
 }
 
 export class ParentFragment extends Fragment {
-    constructor(
-            position: ISourcePosition) {
-        super(position);
-    }
 
     public render(): string {
         return `' + __parent() + '`;
@@ -48,5 +41,14 @@ export class YieldFragment extends Fragment {
 
     public render(): string {
         return `' + __sections['${this.name}'](() => '')() + '`;
+    }
+}
+
+export class ShowFragment extends Fragment {
+
+    public render(): string {
+        return `'));
+            return __sections[__sectionName](() => '')();
+        })() + '`;
     }
 }

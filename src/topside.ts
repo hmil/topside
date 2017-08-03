@@ -11,7 +11,7 @@ import { PassThroughRule } from './rules/passthrough';
 import { TextRule } from './rules/text';
 import { ExtendsRule } from './rules/extends';
 import { CommentRule } from './rules/comment';
-import { EndSectionRule, ParentRule, SectionRule, YieldRule } from './rules/section';
+import { EndSectionRule, ParentRule, SectionRule, ShowRule, YieldRule } from './rules/section';
 
 /**
  * Global preconfigured compiler
@@ -35,6 +35,7 @@ compiler.use(ParentRule);
 compiler.use(ParamRule);
 compiler.use(PassThroughRule);
 compiler.use(SectionRule);
+compiler.use(ShowRule);
 compiler.use(EndSectionRule);
 compiler.use(TextRule);
 compiler.use(YieldRule);
