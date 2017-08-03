@@ -9,12 +9,13 @@ current page: @yield(page-title)
 
 Message of the day: @(motd.getMessage())
 
-@section(infos)
+@-- using quotes in @section is possible but not recommended
+@section('infos')
 ## Informations
 @show
 
 ## Content
 
-@yield(content)
+@yield("content")
 
 ## The end!

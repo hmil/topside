@@ -10,6 +10,18 @@ declare module "../CompilerInterface" {
     }
 }
 
+function cleanQuotes(str: string): string {
+    str = str.trim();
+    const q = str.charAt(0);
+    if (q === "'" || q === '"') {
+        if (str.charAt(str.length - 1) === q) {
+            return str.substr(1, str.length - 2);
+        } else {
+            throw new Error(`Invalid string literal: ${str}`)
+        }
+    }
+    return str;
+}
 
 export const SectionRule: Rule = {
     name: "section",
@@ -22,7 +34,7 @@ export const SectionRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         // TODO: support the form @section('name', 'data')
-        const name = t.data.trim();
+        const name = cleanQuotes(t.data);
         if (ctx.sections.names.indexOf(name) === -1) {
             ctx.sections.names.push(name);
         }
@@ -50,7 +62,7 @@ export const YieldRule: Rule = {
     name: "yield",
 
     analyze(ctx: Context, t: Token): Fragment {
-        const name = t.data.trim();
+        const name = cleanQuotes(t.data);
         if (ctx.sections.names.indexOf(name) === -1) {
             ctx.sections.names.push(name);
         }

@@ -23,6 +23,8 @@ Topside is particularly suited for server-only apps or hybrid apps where a subst
 
 ## Usage
 
+**Hint:** To make the most of Topside, I recommend using [VSCode](https://code.visualstudio.com/) with the [topside-vscode](https://github.com/hmil/topside-vscode) plugin (available in the extensions Marketplace).
+
 This package allows you to compile topside templates to TypeScript module. Each template exports a default function that takes named parameters as input and returns a string.
 
 Install the CLI compiler package and the TypeScript compiler.
@@ -177,7 +179,11 @@ I @--(don't)like the cake@--( is a lie)
 
 ### Template Inheritance
 
-Template inheritance works **exactly** like in Blade (as of Laravel 5.4). Since they made a great job of explaining how it works, the following section has been copy-pasted from the Laravel docs.
+Template inheritance works very much like in Blade (as of Laravel 5.4). Since they made a great job of explaining how it works, the following section has been mostly copy-pasted from the Laravel docs.
+
+**warning:** In Topside, you should avoid quoting the section name
+    DO: @section(foobar)
+    NOT: @section('foobar')
 
 #### Defining A Layout
 
@@ -187,15 +193,15 @@ Two of the primary benefits of using ~~Blade~~ Topside are _template inheritance
 
     <html>
         <head>
-            <title>App Name - @yield('title')</title>
+            <title>App Name - @yield(title)</title>
         </head>
         <body>
-            @section('sidebar')
+            @section(sidebar)
                 This is the master sidebar.
             @show
 
             <div class="container">
-                @yield('content')
+                @yield(content)
             </div>
         </body>
     </html>
@@ -213,15 +219,15 @@ When defining a child view, use the Blade `@extends` directive to specify which 
     @extends './layouts/app.top'
 
     @-- TODO, this syntax is not suported yet
-    @section('title', 'Page Title')
+    @section(title, 'Page Title')
 
-    @section('sidebar')
+    @section(sidebar)
         @parent
 
         <p>This is appended to the master sidebar.</p>
     @endsection
 
-    @section('content')
+    @section(content)
         <p>This is my body content.</p>
     @endsection
 
