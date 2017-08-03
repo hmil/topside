@@ -30,7 +30,7 @@
     "dist": "rollup -c && rollup -c rollup-cli.config.js",
     "build": "tsc && npm run dist && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc-watch --onSuccess \"npm run dist\"",
-    "spec": "NODE_PATH=./spec/fixtures ts-node tools/run-spec",
+    "spec": "ts-node tools/run-spec",
     "test:prod": "npm run lint && npm run spec",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "commit": "git-cz",

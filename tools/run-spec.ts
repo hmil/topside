@@ -12,7 +12,7 @@ if (exec('bin/topside --outDir spec/output/views/ --baseDir spec/fixtures/templa
 }
 
 let status = 0;
-const ok_specs = ls('spec/tests/*.ts');
+const ok_specs = ls('spec/tests/OK/*.ts');
 
 for (let spec of ok_specs) {
     const parsed = path.parse(spec);
@@ -25,6 +25,18 @@ for (let spec of ok_specs) {
         status++;
     } else {
         echo(colors.green('OK'));
+    }
+}
+
+const fail_specs = ls('spec/tests/ERR/*.ts');
+
+for (let spec of fail_specs) {
+    process.stdout.write(`Running spec: ${spec}\t`);
+    if(exec(`node_modules/.bin/ts-node -P spec ${spec} 2>/dev/null >/dev/null`).code) {
+        echo(colors.green('OK'));
+    } else {
+        echo(colors.red('FAILED'));
+        status++;
     }
 }
 

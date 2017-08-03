@@ -1,0 +1,16 @@
+@extends './layout.top'
+
+@param lang: string
+
+@-- @section('page_title', 'Latin stuff')
+@section(page-title)@(lang) stuff@endsection
+
+@section(infos)
+    @parent
+
+    Nothing going on
+@endsection
+
+@section(content)
+Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+@endsection

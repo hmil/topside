@@ -17,6 +17,11 @@ Running a template through a test yields an **exact** match
 with the reference. Any change, may it be just a single whitespace
 will be considered a breaking change.
 
+## Test files
+
+`tests/OK` => Those files are examples of good template usage.
+`tests/ERR` => Those illustrate cases where topside would detect an error.
+
 Additional edge cases are generated programmatically by the
 scripts in fixtures/generators.
 

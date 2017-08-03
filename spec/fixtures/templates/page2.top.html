@@ -1,0 +1,16 @@
+@import Message from '../../fixtures/models/Message';
+
+@param motd: Message;
+
+@extends './page.top'
+
+@section(infos)
+    @parent
+
+    @(motd.getMessage())
+@endsection
+
+@section(content)
+@parent
+Le lorem ipsum est utilisé pour se substituer à du texte dans les maquettes.
+@endsection

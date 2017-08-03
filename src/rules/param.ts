@@ -25,12 +25,19 @@ export const ParamRule: Rule = {
 
     analyze(ctx: Context, t: Token): Fragment {
         const parts = t.data.split(":");
-        if (parts.length === 1) {
+        if (parts.length === 1 || parts[1].trim().length === 0) {
             let errorPos = t.ch + ParamRule.name.length + 2;
             throw new CompileError(
                 "Missing type annotation.",
                 t.line,
                 errorPos
+            );
+        }
+        if (parts[0].trim().indexOf('__') === 0) {
+            throw new CompileError(
+                "Parameter name cannot start with '__'",
+                t.line,
+                t.ch
             );
         }
         ctx.params.push({

@@ -1,0 +1,21 @@
+@import Message from '../../fixtures/models/Message';
+
+@param motd: Message;
+
+Welcome to my layout!
+=====================
+
+current page: @yield(page-title)
+
+Message of the day: @(motd.getMessage())
+
+@section(infos)
+## Informations
+@endsection
+@yield infos
+
+## Content
+
+@yield(content)
+
+## The end!
