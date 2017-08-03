@@ -8,7 +8,7 @@ Topside is a templating language and compiler targetting TypeScript to bring typ
 
 ## Motivation
 
-![front-end fail](./resources/front-end.png)  
+![front-end fail](https://raw.githubusercontent.com/hmil/topside/master/resources/front-end.png)  
 *It was at this moment Matt knew he should've used Topside.*
 
 
