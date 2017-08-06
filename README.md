@@ -218,7 +218,6 @@ When defining a child view, use the Blade `@extends` directive to specify which 
 
     @extends './layouts/app.top'
 
-    @-- TODO, this syntax is not suported yet
     @section(title, 'Page Title')
 
     @section(sidebar)

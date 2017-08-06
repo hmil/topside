@@ -1,4 +1,11 @@
-import { BeginSectionFragment, EndSectionFragment, ParentFragment, ShowFragment, YieldFragment } from '../fragments/section';
+import {
+    BeginSectionFragment,
+    EndSectionFragment,
+    InlineSectionFragment,
+    ParentFragment,
+    ShowFragment,
+    YieldFragment,
+} from '../fragments/section';
 import { Context, Fragment, Rule } from "../CompilerInterface";
 import { Token } from "../Token";
 
@@ -23,6 +30,44 @@ function cleanQuotes(str: string): string {
     return str;
 }
 
+/**
+ * Extracts the section name from the tag.
+ *
+ * In case the string is quoted, quotes are removed (to support usage à la blade).
+ *
+ * For simplicity, this just looks if there's a comma and uses everything before.
+ * It is pretty intuitive when the at-rule is used without quotes as recommended
+ * in the doc but counter-intuitively fails to parse @section('aa,bb');
+ *
+ * @param str The input string as seen in the source
+ */
+function getCleanSectionName(str: string): string {
+    return cleanQuotes(str.split(',')[0]);
+}
+
+/**
+ * Extracts the section data from the tag.
+ *
+ * Users can use the shorthand
+ *
+ *     @section(name, data)
+ *
+ * Which stands for
+ *
+ *     @section(name)@(data)@endsection
+ *
+ * @param str The input string as seen in the source
+ */
+function getCleanSectionData(str: string): string | null {
+    const commaIdx = str.indexOf(',');
+    if (commaIdx === -1) {
+        return null;
+    }
+    else {
+        return str.substr(commaIdx + 1).trim();
+    }
+}
+
 export const SectionRule: Rule = {
     name: "section",
 
@@ -32,13 +77,20 @@ export const SectionRule: Rule = {
         }
     },
 
+
+
     analyze(ctx: Context, t: Token): Fragment {
         // TODO: support the form @section('name', 'data')
-        const name = cleanQuotes(t.data);
+        const name = getCleanSectionName(t.data);
         if (ctx.sections.names.indexOf(name) === -1) {
             ctx.sections.names.push(name);
         }
-        return new BeginSectionFragment(t, name);
+        const data = getCleanSectionData(t.data);
+        if (data != null) {
+            return new InlineSectionFragment(t, name, data);
+        } else {
+            return new BeginSectionFragment(t, name);
+        }
     }
 };
 

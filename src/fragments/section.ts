@@ -2,6 +2,24 @@ import { ISourcePosition } from '../ISourcePosition';
 import { Fragment } from '../CompilerInterface';
 
 
+export class InlineSectionFragment extends Fragment {
+    constructor(
+            position: ISourcePosition,
+            private readonly name: string,
+            private readonly body: string) {
+        super(position);
+    }
+
+    public render(): string {
+        return `' + (() => {
+            const __sectionName = '${this.name}';
+            __sections[__sectionName] = ((__parent: () => string) => __safeSection(__safeChildSections[__sectionName])(
+                () => __escape(${this.body})));
+            return '';
+        })() + '`;
+    }
+}
+
 export class BeginSectionFragment extends Fragment {
     constructor(
             position: ISourcePosition,
