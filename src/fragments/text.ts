@@ -10,6 +10,6 @@ export class TextFragment extends Fragment {
     }
 
     public render(): string {
-        return "' + __escape('' + (" + this.text + ")) + '";
+        return '" + __escape("" + (' + this.text + ')) + "';
     }
 }

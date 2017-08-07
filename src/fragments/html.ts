@@ -10,6 +10,6 @@ export class HtmlFragment extends Fragment {
     }
 
     public render(): string {
-        return "' + (" + this.html + ") + '";
+        return '" + (' + this.html + ') + "';
     }
 }

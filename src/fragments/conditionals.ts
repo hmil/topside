@@ -11,12 +11,12 @@ export class IfFragment extends Fragment {
 
     public render(): string {
         return (
-            "' + \n" +
-            "(function() {\n" +
-            "    if (" +
+            '" + \n' +
+            '(function() {\n' +
+            '    if (' +
             this.expr +
-            ") {\n" +
-            "        return ('"
+            ') {\n' +
+            '        return ("'
         );
     }
 }
@@ -30,11 +30,11 @@ export class ElseIfFragment extends Fragment {
 
     public render(): string {
         return (
-            "');\n" +
-            "    } else if (" +
+            '");\n' +
+            '    } else if (' +
             this.expr +
-            ") {\n" +
-            "        return ('"
+            ') {\n' +
+            '        return ("'
         );
     }
 }
@@ -42,12 +42,12 @@ export class ElseIfFragment extends Fragment {
 export class ElseFragment extends Fragment {
 
     public render(): string {
-        return "');\n" + "    } else {\n" + "        return ('";
+        return '");\n' + '    } else {\n' + '        return ("';
     }
 }
 
 export class EndIfFragment extends Fragment {
     public render(): string {
-        return "');\n" + "    }\n" + "    return '';" + "}()) + '";
+        return '");\n' + '    }\n' + '    return "";' + '}()) + "';
     }
 }

@@ -1,11 +1,11 @@
-import { Context, Fragment } from "../CompilerInterface";
+import { Context, Fragment } from '../CompilerInterface';
 
 export class WrapperBeforeFragment extends Fragment {
 
     render(ctx: Context): string {
 
         const paramsTypeDecl = `export type __Params = {
-${ctx.params.map(p => "            " + p.name + ": " + p.type).join(",\n")}
+${ctx.params.map(p => '            ' + p.name + ': ' + p.type).join(',\n')}
 } ${ctx.extends.parentTemplate ? '& __ParentParams' : ''}`;
 
         const argParams = `__params${ctx.params.length === 0 ? '?' : ''}: __Params`;
@@ -19,12 +19,12 @@ ${ctx.sections.names.map(n => `            '${n}': __Section;`).join('\n')}
 
         const argSections = `__childSections?: ${sectionsType}`;
 
-        const paramsDereference = ctx.params.map(p => `    const ${p.name} = __params.${p.name}`).join(",\n")
+        const paramsDereference = ctx.params.map(p => `    const ${p.name} = __params.${p.name}`).join(',\n')
 
         const imports = ctx.imports.map(i => {
-                return "import " + i + ";";
+                return 'import ' + i + ';';
             })
-            .join("\n");
+            .join('\n');
 
         // We need to use the parent's definition of a Section otherwis the typescript compiler chokes (as of tsc@2.4.1)
         const parentImport = ctx.extends.parentTemplate ?
@@ -34,7 +34,7 @@ ${ctx.sections.names.map(n => `            '${n}': __Section;`).join('\n')}
         const sectionsExpr = `
     let __safeChildSections: ${sectionsType} = __childSections || {};
     const __sections: ${safeSectionsType} = {
-${ctx.sections.names.map(n => `        '${n}': __safeSection(__safeChildSections['${n}'])`).join(',\n')}
+${ctx.sections.names.map(n => `        "${n}": __safeSection(__safeChildSections["${n}"])`).join(',\n')}
     };`;
 
         const sectionInterfaceDecl =
@@ -64,7 +64,7 @@ function __safeSection(section?: __Section): __Section {
 export default function(${argParams}, ${argSections}): string {
 ${paramsDereference}
 ${sectionsExpr}
-    const __text = '`
+    const __text = "`
         );
     }
 }
@@ -73,7 +73,7 @@ export class WrapperAfterFragment extends Fragment {
 
     render(ctx: Context): string {
         ctx;
-        return `';
+        return `";
     return ${ctx.extends.parentTemplate ? '__parent(__params, __sections)' : '__text'};
 };`;
     }
