@@ -80,6 +80,7 @@ export class WrapperAfterFragment extends Fragment {
     render(ctx: Context): string {
         ctx;
         return `";
+    __text;
     return ${ctx.extends.parentTemplate ? '__parent(__params, __sections)' : '__text'};
 };`;
     }
