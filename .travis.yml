@@ -10,9 +10,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - '7.5'
-before_script:
-  - npm prune && npm cache clean
+  - 8
 script:
   - npm run build && npm run test:prod
 after_success:
