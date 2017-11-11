@@ -6,7 +6,9 @@ export function check(fileNames: string[], options: ts.CompilerOptions): void {
     let program = ts.createProgram(fileNames, options);
     let emitResult = program.emit();
 
-    let allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
+    const diags = (emitResult.diagnostics instanceof Array) ? emitResult.diagnostics : [emitResult.diagnostics];
+
+    let allDiagnostics = ts.getPreEmitDiagnostics(program).concat(diags);
 
     allDiagnostics.forEach(diagnostic => {
         if (diagnostic.file == null || diagnostic.start == null) return;
