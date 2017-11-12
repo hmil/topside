@@ -19,7 +19,7 @@ ${ctx.sections.names.map(n => `            '${n}': __Section;`).join('\n')}
 
         const argSections = `__childSections?: ${sectionsType}`;
 
-        const paramsDereference = ctx.params.map(p => `    const ${p.name} = __params.${p.name}`).join(',\n')
+        const paramsDereference = ctx.params.map(p => `    const ${p.name} = __params.${p.name};`).join('\n')
 
         const imports = ctx.imports.map(i => {
                 return 'import ' + i + ';';
