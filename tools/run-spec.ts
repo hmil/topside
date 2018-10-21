@@ -49,7 +49,8 @@ function do_diff(expected: string, actual: string) {
         fs.readFileSync(expected).toString(), 
         fs.readFileSync(actual).toString(), {
             ignoreWhitespace: false,
-            newlineIsToken: true
+            newlineIsToken: true,
+            ignoreCase: false
         }
     ).forEach((part) => {
         if(part.added) {
