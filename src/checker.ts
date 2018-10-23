@@ -10,17 +10,17 @@ export function check(fileNames: string[], options: ts.CompilerOptions): void {
 
     let allDiagnostics = ts.getPreEmitDiagnostics(program).concat(diags);
 
-    allDiagnostics.forEach(diagnostic => {
+    allDiagnostics.forEach(async diagnostic => {
         if (diagnostic.file == null || diagnostic.start == null) return;
 
-            console.log('Diagnostic in ' + diagnostic.file.fileName);
+        console.log('Diagnostic in ' + diagnostic.file.fileName);
 
-            let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+        let { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
 
-            let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+        let message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
 
         try {
-            const consumer = new SourceMapConsumer(fs.readFileSync(diagnostic.file.fileName + '.map').toString());
+            const consumer = await new SourceMapConsumer(fs.readFileSync(diagnostic.file.fileName + '.map').toString());
             const origPos = consumer.originalPositionFor({
                 line: line + 1,
                 column: character + 1
