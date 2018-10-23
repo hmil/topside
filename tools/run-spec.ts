@@ -17,7 +17,7 @@ const ok_specs = ls('spec/tests/OK/*.ts');
 for (let spec of ok_specs) {
     const parsed = path.parse(spec);
     process.stdout.write(`Running spec: ${spec}\t`);
-    exec(`node_modules/.bin/ts-node -P spec ${spec} > spec/output/${parsed.name}.html`);
+    exec(`node_modules/.bin/ts-node -P spec/tsconfig.json ${spec} > spec/output/${parsed.name}.html`);
     const diff = do_diff(`spec/references/${parsed.name}.html`, `spec/output/${parsed.name}.html`);
     if (diff) {
         echo(colors.red('FAILED'));
@@ -32,7 +32,7 @@ const fail_specs = ls('spec/tests/ERR/*.ts');
 
 for (let spec of fail_specs) {
     process.stdout.write(`Running spec: ${spec}\t`);
-    if(exec(`node_modules/.bin/ts-node -P spec ${spec} 2>/dev/null >/dev/null`).code) {
+    if(exec(`node_modules/.bin/ts-node -P spec/tsconfig.json ${spec} 2>/dev/null >/dev/null`).code) {
         echo(colors.green('OK'));
     } else {
         echo(colors.red('FAILED'));
