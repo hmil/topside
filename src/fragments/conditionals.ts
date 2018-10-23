@@ -47,7 +47,12 @@ export class ElseFragment extends Fragment {
 }
 
 export class EndIfFragment extends Fragment {
+
+    constructor(position: ISourcePosition, private includeReturn: boolean) {
+        super(position);
+    }
+
     public render(): string {
-        return '");\n' + '    }\n' + '    return "";' + '}()) + "';
+        return `");\n    }\n    ${this.includeReturn ? 'return "";' : ''}}()) + "`;
     }
 }
