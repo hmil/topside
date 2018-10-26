@@ -1,8 +1,16 @@
 language: node_js
 node_js:
-  - 8
+- 8
 script:
-  - npm run build && npm run test:prod
-after_success:
-  - npm run deploy-docs
-  - npm run semantic-release
+- npm run build
+- npm run lint
+- npm run test
+deploy:
+  provider: npm
+  email: hadrien.milano@gmail.com
+  api_key:
+    secure: Hct/RVF/rh+LbHdqGejHURNNuXYMGQr1m7vGaH3op7Rtoo/HFVm6PgF6ZJ/QabaWYkDwnrd4U0nJTWNrAe2HzppmtIRH75JLvEkLIE8o4Gvgo66CmGzHj27Q3yA9CLv0Pe22iXQHaX2Zt2sPgQQbg1YJ1SUX+J/ZmT6Io/9oLelpKepD8ISdRE7ePWIZh04IKltz0w1JdZmzwXYWIep1A9Pse36hrm0dqB6GcXANPGjjXoQtpop/PsOvEHauA+aHc4ajknr76jH7xJAZ4mTNP/f7v2achHuwulKW9+qCsj4g8cbtJ1XW+0Giw/KCc2b4Y9dYiQnD/4e4KmglAEcpix+97MsPoKmA6BCz66iy0bh+wYekmK52Gux9Jn+xZkr7HOi5MDNiQZLXxlrv4jkdsxtetOFpW8VwWFlGTBIbOEIKK80WDbE87WXZXPXudubvpqYoGBOEmxOtk5VJtrtZjfyS2JGfyvN3xF0YbdnSO1xGKgYC9CufxttPS0anzaLt2QV711x6mORHZffXci63fEDgJACmFUhq7AKiN3PIpFLl98wTxb2bh56v79WS/vZe2hil1PWIAjPXCX2XcSTfx3cO8BEjXmkKmcnhXj7UjhrifK4G8PnIp2fNLzzvT4L1fo9kqBUD0TsiUaXLO3OO/ZrExxm2fbrpCQvVxzHQIIU=
+  on:
+    tags: true
+    repo: hmil/topside
+  skip_cleanup: true

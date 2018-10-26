@@ -30,30 +30,8 @@
     "dist": "rollup -c && rollup -c rollup-cli.config.js",
     "build": "tsc && npm run dist && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc-watch --onSuccess \"npm run dist\"",
-    "spec": "ts-node tools/run-spec",
-    "test:prod": "npm run lint && npm run spec",
-    "deploy-docs": "ts-node tools/gh-pages-publish",
-    "commit": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
-    "clean": "rimraf spec/output compiled dist",
-    "prepush": "npm run clean && npm run build && npm run test:prod",
-    "commitmsg": "validate-commit-msg"
-  },
-  "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "npm run lint"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "validate-commit-msg": {
-      "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
-    }
+    "test": "ts-node tools/run-spec",
+    "clean": "rimraf spec/output compiled dist"
   },
   "devDependencies": {
     "@types/diff": "3.5.1",
@@ -63,11 +41,8 @@
     "@types/mkdirp": "0.5.2",
     "@types/node": "10.12.0",
     "colors": "1.3.2",
-    "commitizen": "3.0.4",
     "cross-env": "5.2.0",
-    "cz-conventional-changelog": "2.1.0",
     "diff": "3.5.0",
-    "husky": "1.1.2",
     "lint-staged": "7.3.0",
     "lodash.camelcase": "4.3.0",
     "prettier": "1.14.3",
@@ -79,7 +54,6 @@
     "rollup-plugin-commonjs": "9.2.0",
     "rollup-plugin-node-resolve": "3.4.0",
     "rollup-plugin-sourcemaps": "0.4.2",
-    "semantic-release": "15.10.5",
     "ts-node": "7.0.1",
     "tsc-watch": "1.0.30",
     "tslint": "5.11.0",
