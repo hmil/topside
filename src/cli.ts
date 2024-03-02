@@ -3,8 +3,8 @@ import { compiler } from "./topside";
 import * as minimist from 'minimist';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as glob from 'glob';
-import * as mkdirp from 'mkdirp';
+import { globSync as glob } from 'glob';
+import { mkdirp } from 'mkdirp';
 
 let argv = minimist(process.argv.slice(2));
 let outDir: string | null = null;
@@ -23,16 +23,10 @@ function processFile(arg: string): void {
     if (outDir) {
         filePath.dir = path.resolve(outDir, path.relative(baseDir, filePath.dir));
     }
-    mkdirp(filePath.dir, function (err: any) {
-        if (err) {
-            console.error(err);
-        } else {
-            const dest = path.resolve(path.format(filePath));
-            fs.writeFileSync(dest, compiled.code + "\n//# sourceMappingURL=" + filePath.name + '.ts.map');
-            fs.writeFileSync(dest + '.map', compiled.map);
-        }
-    });
-
+    mkdirp.sync(filePath.dir);
+    const dest = path.resolve(path.format(filePath));
+    fs.writeFileSync(dest, compiled.code + "\n//# sourceMappingURL=" + filePath.name + '.ts.map');
+    fs.writeFileSync(dest + '.map', compiled.map.toString());
 }
 
 if (argv.outDir) {
@@ -44,8 +38,5 @@ if (argv.baseDir) {
 }
 
 for (let i = 0 ; i < argv._.length ; i++) {
-    glob(argv._[i], (err, files) => {
-        if (err) throw err;
-        files.forEach(processFile);
-    });
+    glob(argv._[i]).forEach(processFile);
 }

@@ -38,7 +38,7 @@ export default class Compiler {
             const tokens = tokenizer.close();
             return this.processTokens(tokens, options);
         } catch (e) {
-            if (e.name === "CompileError") {
+            if (e instanceof CompileError) {
                 let file = 'anonymous';
                 if (options && options.file != null) {
                     file = options.file;
